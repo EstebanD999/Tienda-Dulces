@@ -59,7 +59,10 @@ function decreaseQuantity(id) {
 }
 
 function emptyCart() {
-  setCart([])
+  if (cart.length > 0) {
+    setCart([])
+    showNotification('Productos eliminados', 'danger')
+  }
 }
 
   return (

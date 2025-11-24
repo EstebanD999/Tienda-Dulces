@@ -1,4 +1,15 @@
+import { useState } from "react";
+
 export default function Header({ cart, removeFromCart, increaseQuantity, decreaseQuantity, emptyCart }) {
+
+    const [showConfirm, setShowConfirm] = useState(false)
+
+    const handleConfirmEmpty = () => {
+        emptyCart()
+        setShowConfirm(false)
+    }
+
+    const handleCancelEmpty = () => setShowConfirm(false)
 
     const isEmpty = () => cart.length === 0
     const cartTotal=()=>cart.reduce((total, item)=>total+(item.price * item.quantity),0)
@@ -77,7 +88,27 @@ export default function Header({ cart, removeFromCart, increaseQuantity, decreas
                                             </tbody>
                                         </table>
                                         <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal()}</span></p>
-                                        <button className="btn btn-dark w-100 mt-3 p-2" onClick={emptyCart}>Vaciar Carrito</button>
+                                        <>
+                                            <button
+                                                className="btn btn-dark w-100 mt-3 p-2"
+                                                onClick={() => setShowConfirm(true)}
+                                            >
+                                                Vaciar Carrito
+                                            </button>
+
+                                            {showConfirm && (
+                                                <div className="confirm-modal-overlay" role="presentation" onClick={handleCancelEmpty}>
+                                                    <div className="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" onClick={e => e.stopPropagation()}>
+                                                        <h3 id="confirmTitle" className="fs-5 fw-bold">Confirmar acción</h3>
+                                                        <p className="m-0">¿Estás seguro que deseas vaciar el carrito? Esta acción eliminará todos los productos.</p>
+                                                        <div className="d-flex justify-content-end gap-4 mt-3">
+                                                            <button className="btn btn-light" onClick={handleCancelEmpty}>Cancelar</button>
+                                                            <button className="btn btn-danger" onClick={handleConfirmEmpty}>Vaciar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>
                                     </>
                                     )}
                                 </div>

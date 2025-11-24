@@ -1,6 +1,4 @@
-import Snacks from "./Snacks"
-
-export default function Header({ cart , removeFromCart}) {
+export default function Header({ cart, removeFromCart, increaseQuantity, decreaseQuantity, emptyCart }) {
 
     const isEmpty = () => cart.length === 0
     const cartTotal=()=>cart.reduce((total, item)=>total+(item.price * item.quantity),0)
@@ -50,6 +48,7 @@ export default function Header({ cart , removeFromCart}) {
                                                             <button
                                                                 type="button"
                                                                 className="btn btn-dark"
+                                                                onClick={() => decreaseQuantity(snacks.id)}
                                                             >
                                                                 -
                                                             </button>
@@ -57,6 +56,7 @@ export default function Header({ cart , removeFromCart}) {
                                                             <button
                                                                 type="button"
                                                                 className="btn btn-dark"
+                                                                onClick={() => increaseQuantity(snacks.id)}
                                                             >
                                                                 +
                                                             </button>
@@ -77,7 +77,7 @@ export default function Header({ cart , removeFromCart}) {
                                             </tbody>
                                         </table>
                                         <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal()}</span></p>
-                                        <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                                        <button className="btn btn-dark w-100 mt-3 p-2" onClick={emptyCart}>Vaciar Carrito</button>
                                     </>
                                     )}
                                 </div>

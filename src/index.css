@@ -840,5 +840,46 @@ img.logo-circular:hover {
   color: #ff85c4; /* un tono un poquito más claro al pasar el cursor */
 }
 
+/* Notificación personalizada: slide down desde arriba */
+.app-notification-wrapper {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  pointer-events: none; /* permitir clicks debajo */
+  z-index: 1060;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem;
+}
+.app-notification {
+  pointer-events: auto;
+  transform: translateY(-120%);
+  transition: transform 350ms cubic-bezier(.2,.8,.2,1), opacity 250ms ease;
+  opacity: 0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  font-weight: 700;
+  display: inline-block;
+}
+.app-notification.show {
+  transform: translateY(6px);
+  opacity: 1;
+}
+.app-notification.success {
+  background: linear-gradient(90deg, #28a745, #198754);
+}
+.app-notification.danger {
+  background: linear-gradient(90deg, #e34b4b, #dc3545);
+}
+
+@media (max-width: 576px) {
+  .app-notification-wrapper { max-width: calc(100% - 1.5rem); padding-left: .75rem; padding-right: .75rem }
+}
+
 
 
